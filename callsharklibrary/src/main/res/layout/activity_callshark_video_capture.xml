@@ -8,6 +8,6 @@
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_marginTop="50dp"
-        android:onClick="sendVideo"
+        android:onClick="sendVideoWithCheckPermission"
         android:text="Отправить." />
 </LinearLayout>

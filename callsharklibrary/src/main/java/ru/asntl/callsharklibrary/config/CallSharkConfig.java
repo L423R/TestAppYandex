@@ -1,5 +1,7 @@
 package ru.asntl.callsharklibrary.config;
 
+import ru.asntl.callsharklibrary.R;
+
 public class CallSharkConfig {
 
     private static String callSharkUrl;
@@ -46,6 +48,9 @@ public class CallSharkConfig {
     }
 
     public static int getLayoutResIDForVideoCaptureActivity() {
+        if (layoutResIDForVideoCaptureActivity==0){
+            layoutResIDForVideoCaptureActivity = R.layout.activity_callshark_video_capture;
+        }
         return layoutResIDForVideoCaptureActivity;
     }
 

@@ -17,13 +17,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onMyButtonClick(View view) {
+        /*required setting*/
         CallSharkConfig.setCallSharkUrl("https://develop.callshark.ru");
-        CallSharkConfig.setYandexVisitorId(999);
         CallSharkConfig.setClientId(1190);
         CallSharkConfig.setSiteId(1857);
+
+        /*not required setting*/
+        CallSharkConfig.setYandexVisitorId(999);
+
+        /*video recording setup*/
         CallSharkConfig.setLayoutResIDForVideoCaptureActivity(R.layout.activity_test);
         CallSharkConfig.setVideoDurationLimit(15);
-        CallSharkStarter starter = new CallSharkStarter(this,this);
+
+        /*start*/
+        CallSharkStarter starter = new CallSharkStarter(this,this, true);
         starter.execute(CallSharkConfig.getURLForStarter());
 
     }

@@ -8,6 +8,7 @@ import android.webkit.PermissionRequest;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.Toast;
 
 import ru.asntl.callsharklibrary.config.CallSharkConfig;
 import ru.asntl.callsharklibrary.utilities.CallSharkUtility;
@@ -64,6 +65,7 @@ public class CallSharkActivity extends AppCompatActivity {
         if (requestCode==PERMISSION_REQUEST_CODE_RECORD_AUDIO){
             if (grantResults[0]==-1){
                 finish();
+                Toast.makeText(this, "Разрешите доступ к микрофону для продолжения работы.", Toast.LENGTH_SHORT).show();
             }else {
                 startCallShark();
                 CallSharkUtility.checkPermissionForCamera(this,this);

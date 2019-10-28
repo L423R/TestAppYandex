@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -18,10 +19,18 @@ public class CallSharkStarter extends AsyncTask<String, Integer, String> {
 
     private Context context;
     private Activity activity;
+    private boolean recordVideoIfOperatorsAreNotAvailable;
+
+    public CallSharkStarter(Context context, Activity activity, boolean recordVideoIfOperatorsAreNotAvailable) {
+        this.context = context;
+        this.activity = activity;
+        this.recordVideoIfOperatorsAreNotAvailable = recordVideoIfOperatorsAreNotAvailable;
+    }
 
     public CallSharkStarter(Context context, Activity activity) {
         this.context = context;
         this.activity = activity;
+        this.recordVideoIfOperatorsAreNotAvailable = false;
     }
 
     protected String doInBackground(String... urls) {
@@ -53,8 +62,13 @@ public class CallSharkStarter extends AsyncTask<String, Integer, String> {
         // update your UI here
         if (result!=null){
             if (result.startsWith("0")){
-                Intent intent = new Intent(context, CallSharkVideoCaptureActivity.class);
-                activity.startActivity(intent);
+                if (recordVideoIfOperatorsAreNotAvailable){
+                    Toast.makeText(activity, "Операторов нет онлайн. Запишите видео.", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(context, CallSharkVideoCaptureActivity.class);
+                    activity.startActivity(intent);
+                }else {
+                    Toast.makeText(activity, "Операторов нет онлайн. Повторите позже.", Toast.LENGTH_SHORT).show();
+                }
             }else {
                 Intent intent = new Intent(context, CallSharkActivity.class);
                 activity.startActivity(intent);

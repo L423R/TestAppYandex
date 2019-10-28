@@ -46,7 +46,7 @@ public class CallSharkVideoCaptureActivity extends AppCompatActivity {
         }else {
             switch (requestCode){
                 case PERMISSION_REQUEST_CODE_READ_EXTERNAL_STORAGE:
-                    sendVideo(videoPath);
+                    sendVideo(videoPath,this);
                     finish();
                     break;
                 case PERMISSION_REQUEST_CODE_CAMERA:
@@ -69,7 +69,7 @@ public class CallSharkVideoCaptureActivity extends AppCompatActivity {
 
     public void sendVideoWithCheckPermission(View view) {
         if (CallSharkUtility.checkPermissionForStorage(this,this)){
-            sendVideo(videoPath);
+            sendVideo(videoPath,this);
             finish();
         }
     }

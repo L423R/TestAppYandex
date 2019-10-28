@@ -4,8 +4,10 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.os.Looper;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
@@ -61,25 +63,38 @@ public class CallSharkUtility {
         return true;
     }
 
-    public static void sendVideo(String videoPath) {
-        final File file = new File(videoPath);
+    public static void sendVideo(String videoPath, final Activity activity) {
+        if (videoPath==null){
+            Toast.makeText(activity, "Вы не записали видео. Повторите запись.", Toast.LENGTH_SHORT).show();
+        }else {
+            final File file = new File(videoPath);
 
-        Thread thread = new Thread(new Runnable() {
+            Thread thread = new Thread(new Runnable() {
 
-            @Override
-            public void run() {
-                try {
-                    MultipartUtility multipartUtility = new MultipartUtility(CallSharkConfig.getURLForSendFileToServer());
-                    multipartUtility.addFormField("clientId", String.valueOf(CallSharkConfig.getClientId()));
-                    multipartUtility.addFormField("yandexVisitorId", String.valueOf(CallSharkConfig.getYandexVisitorId()));
-                    multipartUtility.addFilePart("file",file);
-                    String finish = multipartUtility.finish();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                @Override
+                public void run() {
+                    try {
+                        MultipartUtility multipartUtility = new MultipartUtility(CallSharkConfig.getURLForSendFileToServer());
+                        multipartUtility.addFormField("clientId", String.valueOf(CallSharkConfig.getClientId()));
+                        multipartUtility.addFormField("yandexVisitorId", String.valueOf(CallSharkConfig.getYandexVisitorId()));
+                        multipartUtility.addFilePart("file",file);
+                        String finish = multipartUtility.finish();
+                        if (finish.startsWith("OK")){
+                            Looper.prepare();
+                            Toast.makeText(activity, "Ваше видео успешно отправлено.", Toast.LENGTH_SHORT).show();
+                            Looper.loop();
+                        }
+                    } catch (IOException e) {
+                        Looper.prepare();
+                        Toast.makeText(activity, "Ошибка отправки ведео.", Toast.LENGTH_SHORT).show();
+                        Looper.loop();
+                        e.printStackTrace();
+                    }
                 }
-            }
-        });
+            });
 
-        thread.start();
+            thread.start();
+        }
+
     }
 }
