@@ -1,20 +1,19 @@
-package ru.asntl.callsharklibrary.activity;
+package ru.asntl.callsharklibrary.webview;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.webkit.PermissionRequest;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Toast;
 
-import ru.asntl.callsharklibrary.config.CallSharkConfig;
-import ru.asntl.callsharklibrary.utilities.CallSharkUtility;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import ru.asntl.callsharklibrary.R;
+import ru.asntl.callsharklibrary.config.CallSharkConfig;
 import ru.asntl.callsharklibrary.jsinterface.JavaScriptInterface;
-
+import ru.asntl.callsharklibrary.utilities.CallSharkUtility;
 
 import static ru.asntl.callsharklibrary.utilities.CallSharkUtility.PERMISSION_REQUEST_CODE_RECORD_AUDIO;
 

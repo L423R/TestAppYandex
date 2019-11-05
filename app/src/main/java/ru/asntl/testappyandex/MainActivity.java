@@ -1,9 +1,10 @@
 package ru.asntl.testappyandex;
 
-import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.appcompat.app.AppCompatActivity;
 import ru.asntl.callsharklibrary.config.CallSharkConfig;
 import ru.asntl.callsharklibrary.CallSharkStarter;
 
@@ -26,8 +27,7 @@ public class MainActivity extends AppCompatActivity {
         CallSharkConfig.setYandexVisitorId(999);
 
         /*video recording setup*/
-        CallSharkConfig.setLayoutResIDForVideoCaptureActivity(R.layout.activity_test);
-        CallSharkConfig.setVideoDurationLimit(15);
+        CallSharkConfig.setVideoDurationLimitMs(180000);
 
         /*start*/
         CallSharkStarter starter = new CallSharkStarter(this,this, true);

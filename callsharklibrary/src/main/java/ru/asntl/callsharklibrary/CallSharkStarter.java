@@ -12,25 +12,32 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import ru.asntl.callsharklibrary.activity.CallSharkActivity;
-import ru.asntl.callsharklibrary.activity.CallSharkVideoCaptureActivity;
+import ru.asntl.callsharklibrary.camera.CameraActivity;
+import ru.asntl.callsharklibrary.webview.CallSharkActivity;
 
 public class CallSharkStarter extends AsyncTask<String, Integer, String> {
 
     private Context context;
     private Activity activity;
-    private boolean recordVideoIfOperatorsAreNotAvailable;
+    private static Context currentContext = null;
+    private boolean isRecordVideoIfOperatorsAreNotAvailable;
 
-    public CallSharkStarter(Context context, Activity activity, boolean recordVideoIfOperatorsAreNotAvailable) {
+    public CallSharkStarter(Context context, Activity activity, boolean isRecordVideoIfOperatorsAreNotAvailable) {
         this.context = context;
         this.activity = activity;
-        this.recordVideoIfOperatorsAreNotAvailable = recordVideoIfOperatorsAreNotAvailable;
+        this.isRecordVideoIfOperatorsAreNotAvailable = isRecordVideoIfOperatorsAreNotAvailable;
+        currentContext = context;
     }
 
     public CallSharkStarter(Context context, Activity activity) {
         this.context = context;
         this.activity = activity;
-        this.recordVideoIfOperatorsAreNotAvailable = false;
+        this.isRecordVideoIfOperatorsAreNotAvailable = false;
+        currentContext = context;
+    }
+
+    public static Context getCurrentContext() {
+        return currentContext;
     }
 
     protected String doInBackground(String... urls) {
@@ -62,12 +69,12 @@ public class CallSharkStarter extends AsyncTask<String, Integer, String> {
         // update your UI here
         if (result!=null){
             if (result.startsWith("0")){
-                if (recordVideoIfOperatorsAreNotAvailable){
+                if (isRecordVideoIfOperatorsAreNotAvailable){
                     Toast.makeText(activity, "Операторов нет онлайн. Запишите видео.", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(context, CallSharkVideoCaptureActivity.class);
+                    Intent intent = new Intent(context, CameraActivity.class);
                     activity.startActivity(intent);
                 }else {
-                    Toast.makeText(activity, "Операторов нет онлайн. Повторите позже.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity, "Операторов нет онлайн. Повторите позже.", Toast.LENGTH_LONG).show();
                 }
             }else {
                 Intent intent = new Intent(context, CallSharkActivity.class);

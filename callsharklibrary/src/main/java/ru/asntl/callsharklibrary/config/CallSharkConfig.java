@@ -1,7 +1,5 @@
 package ru.asntl.callsharklibrary.config;
 
-import ru.asntl.callsharklibrary.R;
-
 public class CallSharkConfig {
 
     private static String callSharkUrl;
@@ -9,8 +7,7 @@ public class CallSharkConfig {
     private static int clientId;
     private static int siteId;
 
-    private static int layoutResIDForVideoCaptureActivity;
-    private static int videoDurationLimit = 10;
+    private static int videoDurationLimitMs = 10000;
 
     private CallSharkConfig() {
     }
@@ -47,23 +44,12 @@ public class CallSharkConfig {
         CallSharkConfig.siteId = siteId;
     }
 
-    public static int getLayoutResIDForVideoCaptureActivity() {
-        if (layoutResIDForVideoCaptureActivity==0){
-            layoutResIDForVideoCaptureActivity = R.layout.activity_callshark_video_capture;
-        }
-        return layoutResIDForVideoCaptureActivity;
+    public static int getVideoDurationLimitMs() {
+        return videoDurationLimitMs;
     }
 
-    public static void setLayoutResIDForVideoCaptureActivity(int layoutResIDForVideoCaptureActivity) {
-        CallSharkConfig.layoutResIDForVideoCaptureActivity = layoutResIDForVideoCaptureActivity;
-    }
-
-    public static int getVideoDurationLimit() {
-        return videoDurationLimit;
-    }
-
-    public static void setVideoDurationLimit(int videoDurationLimit) {
-        CallSharkConfig.videoDurationLimit = videoDurationLimit;
+    public static void setVideoDurationLimitMs(int videoDurationLimitMs) {
+        CallSharkConfig.videoDurationLimitMs = videoDurationLimitMs;
     }
 
     public static String getURLForSendFileToServer(){
