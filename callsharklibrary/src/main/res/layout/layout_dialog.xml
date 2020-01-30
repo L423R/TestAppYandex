@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@color/yandexDark">
+
+    <TextView
+        android:id="@+id/textSelect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:text="Выберите формат обращения"/>
+
+    <!--<ImageButton
+        android:id="@+id/videoSelect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textSelect"
+        android:layout_marginTop="@dimen/cardview_compat_inset_shadow"
+        android:contentDescription="Видео"
+        android:src="@drawable/ic_videocam_filled_tool"/>
+    <ImageButton
+        android:id="@+id/audioSelect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/videoSelect"
+        android:contentDescription="Видео"
+        android:src="@drawable/ic_recorder_microphone"/>-->
+
+    <Button
+        android:id="@+id/videoSelect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textSelect"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="7dp"
+        android:padding="10dp"
+        android:background="@android:color/black"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:contentDescription="Видео"
+        android:text="Видео запись"
+        android:drawableRight="@drawable/ic_videocam_filled_tool"/>
+
+    <Button
+        android:id="@+id/audioSelect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/videoSelect"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="Видео"
+        android:background="@android:color/black"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="7dp"
+        android:padding="10dp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:text="Аудио запись"
+        android:drawableRight="@drawable/ic_recorder_microphone"/>
+</RelativeLayout>

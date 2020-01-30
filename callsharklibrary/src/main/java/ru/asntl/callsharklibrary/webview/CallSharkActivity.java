@@ -30,11 +30,23 @@ public class CallSharkActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        destroyWebView();
+    }
+
     private void startCallShark() {
         setContentView(R.layout.activity_callshark);
         webView = findViewById(R.id.webView);
 
         webView.setWebChromeClient(new WebChromeClient(){
+
+            @Override
+            public void onCloseWindow(WebView window) {
+                super.onCloseWindow(window);
+            }
+
             @Override
             public void onPermissionRequest(final PermissionRequest request) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -42,6 +54,7 @@ public class CallSharkActivity extends AppCompatActivity {
                 }
             }
         });
+
 
 
         webView.getSettings().setJavaScriptEnabled(true);
@@ -55,7 +68,7 @@ public class CallSharkActivity extends AppCompatActivity {
         webView.getSettings().setAppCacheEnabled(false);
         webView.getSettings().setMediaPlaybackRequiresUserGesture(false);
         webView.addJavascriptInterface(new JavaScriptInterface(this), "AndroidFunction");
-        webView.loadUrl(CallSharkConfig.getCallSharkUrl()+"/calls/callHttp?c="+ CallSharkConfig.getClientId()+"&g=0&s="+ CallSharkConfig.getSiteId()+"&mode=video");
+        webView.loadUrl(CallSharkConfig.getCallSharkUrl()+"/calls/callHttp?c="+ CallSharkConfig.getClientId()+"&g=0&s="+ CallSharkConfig.getSiteId()+"&mode=video&lang="+CallSharkConfig.getLang());
     }
 
     @Override
@@ -71,6 +84,37 @@ public class CallSharkActivity extends AppCompatActivity {
             }
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    public void destroyWebView() {
+
+        /*// Make sure you remove the WebView from its parent view before doing anything.
+        mWebContainer.removeAllViews();*/
+
+        webView.clearHistory();
+
+        // NOTE: clears RAM cache, if you pass true, it will also clear the disk cache.
+        // Probably not a great idea to pass true if you have other WebViews still alive.
+        webView.clearCache(true);
+
+        // Loading a blank page is optional, but will ensure that the WebView isn't doing anything when you destroy it.
+        webView.loadUrl("about:blank");
+
+        webView.onPause();
+        webView.removeAllViews();
+        webView.destroyDrawingCache();
+
+        // NOTE: This pauses JavaScript execution for ALL WebViews,
+        // do not use if you have other WebViews still alive.
+        // If you create another WebView after calling this,
+        // make sure to call mWebView.resumeTimers().
+        webView.pauseTimers();
+
+        // NOTE: This can occasionally cause a segfault below API 17 (4.2)
+        webView.destroy();
+
+        // Null out the reference so that you don't end up re-using it.
+        webView = null;
     }
 
 }

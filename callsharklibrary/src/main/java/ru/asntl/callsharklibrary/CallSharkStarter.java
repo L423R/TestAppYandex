@@ -12,7 +12,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import ru.asntl.callsharklibrary.camera.CameraActivity;
+import ru.asntl.callsharklibrary.audio.AudioActivity;
 import ru.asntl.callsharklibrary.webview.CallSharkActivity;
 
 public class CallSharkStarter extends AsyncTask<String, Integer, String> {
@@ -70,8 +70,9 @@ public class CallSharkStarter extends AsyncTask<String, Integer, String> {
         if (result!=null){
             if (result.startsWith("0")){
                 if (isRecordVideoIfOperatorsAreNotAvailable){
-                    Toast.makeText(activity, "Операторов нет онлайн. Запишите видео.", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(context, CameraActivity.class);
+//                    Toast.makeText(activity, "Операторов нет онлайн. Запишите видео.", Toast.LENGTH_SHORT).show();
+//                    Intent intent = new Intent(context, CameraActivity.class);
+                    Intent intent = new Intent(context, AudioActivity.class);
                     activity.startActivity(intent);
                 }else {
                     Toast.makeText(activity, "Операторов нет онлайн. Повторите позже.", Toast.LENGTH_LONG).show();

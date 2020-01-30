@@ -58,6 +58,7 @@ import androidx.core.app.ActivityCompat;
 import ru.asntl.callsharklibrary.R;
 import ru.asntl.callsharklibrary.camera.ui.base.BaseFragment;
 import ru.asntl.callsharklibrary.config.CallSharkConfig;
+import ru.asntl.callsharklibrary.utilities.FileUtility;
 
 
 public abstract class CameraVideoFragment extends BaseFragment {
@@ -441,12 +442,13 @@ public abstract class CameraVideoFragment extends BaseFragment {
                 return null;
             }
         }
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
-                Locale.getDefault()).format(new Date());
+        /*String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
+                Locale.getDefault()).format(new Date());*/
         File mediaFile;
 
         mediaFile = new File(mediaStorageDir.getPath() + File.separator
-                + "VID_" + timeStamp + ".mp4");
+                + FileUtility.generateFileName() + ".mp4");
+
         return mediaFile;
     }
 

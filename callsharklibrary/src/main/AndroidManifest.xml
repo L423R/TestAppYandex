@@ -1,5 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="ru.asntl.callsharklibrary" >
+    package="ru.asntl.callsharklibrary">
 
     <uses-permission android:name="android.permission.CAMERA" />
+
+    <application>
+        <activity android:name=".audio.AudioActivity"></activity>
+    </application>
+
 </manifest>

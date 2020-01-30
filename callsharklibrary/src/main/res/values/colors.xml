@@ -7,4 +7,6 @@
     <color name="black87">#212121</color>
     <color name="black12">#424242</color>
     <color name="red">#F71717</color>
+    <color name="yandexDark">#1d1d1d</color>
+    <color name="yandexGreen">#00FF27</color>
 </resources>

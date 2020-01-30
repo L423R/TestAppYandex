@@ -1,5 +1,7 @@
 package ru.asntl.callsharklibrary.camera;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -42,7 +44,7 @@ import ru.asntl.callsharklibrary.camera.utils.AutoFitTextureView;
 import ru.asntl.callsharklibrary.camera.utils.CameraVideoFragment;
 import ru.asntl.callsharklibrary.config.CallSharkConfig;
 import ru.asntl.callsharklibrary.utilities.CallSharkUtility;
-
+import ru.asntl.callsharklibrary.utilities.YandexDiskUtility;
 
 
 public class CameraFragment extends CameraVideoFragment {
@@ -167,8 +169,29 @@ public class CameraFragment extends CameraVideoFragment {
 
     @OnClick(R2.id.mDoneVideo)
     public void onDoneClicked(View view) {
-        CallSharkUtility.sendVideo(getCurrentFile().getAbsolutePath());
-        getActivity().finish();
+//        CallSharkUtility.sendVideo(getCurrentFile().getAbsolutePath());
+        /*Class activitiesClass = CallSharkConfig.getActivitiesClass();
+        if (activitiesClass != null){
+            Intent intent = new Intent(getActivity().getApplicationContext(),activitiesClass);
+            intent.putExtra("url","yandex.ru");
+            Activity activity = getActivity();
+            activity.startActivity(intent);
+        }
+*/
+        Class activitiesClass = CallSharkConfig.getActivitiesClass();
+        if (activitiesClass != null){
+            Intent intent = new Intent(getActivity().getApplicationContext(),activitiesClass);
+
+
+//                File file = new File(mFileName);
+                /* CallSharkStarter starter = new CallSharkStarter(this,this, true);
+        starter.execute(CallSharkConfig.getURLForStarter());*/
+            File currentFile = getCurrentFile();
+            intent.putExtra("fileName",currentFile.getName());
+            new YandexDiskUtility().execute(currentFile.getAbsolutePath());
+            getActivity().finish();
+            startActivity(intent);
+        }
     }
 
     @OnClick(R2.id.mBackVideo)

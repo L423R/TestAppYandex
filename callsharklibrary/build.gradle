@@ -12,7 +12,7 @@ ext {
     siteUrl = 'https://callshark.ru'
     gitUrl = 'https://github.com/L423R/TestAppYandex/'
 
-    libraryVersion = '1.0.3'
+    libraryVersion = '1.0.4'
 
     developerId = 'mkrylov704'
     developerName = 'Maxim Krylov'
@@ -25,7 +25,6 @@ ext {
 
 android {
     compileSdkVersion 28
-
 
 
     defaultConfig {
@@ -56,6 +55,7 @@ dependencies {
 
     //noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
@@ -71,6 +71,10 @@ dependencies {
     /*implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation 'com.android.support:design:28.0.0'*/
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+//    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.8'
+//    implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.8'
+
 }
 
 apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'

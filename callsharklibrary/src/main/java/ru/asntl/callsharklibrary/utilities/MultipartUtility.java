@@ -1,9 +1,12 @@
 package ru.asntl.callsharklibrary.utilities;
 
+import android.os.Build;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -35,7 +38,7 @@ public class MultipartUtility {
         httpConn.setDoOutput(true); // indicates POST method
         httpConn.setDoInput(true);
 
-        httpConn.setRequestMethod("POST");
+        httpConn.setRequestMethod("PUT");
         httpConn.setRequestProperty("Connection", "Keep-Alive");
         httpConn.setRequestProperty("Cache-Control", "no-cache");
         httpConn.setRequestProperty(
@@ -75,10 +78,22 @@ public class MultipartUtility {
                 fileName + "\"" + this.crlf);
         request.writeBytes(this.crlf);
 
-        byte[] bytes = new byte[0];
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+//        byte[] bytes = new byte[0];
+       /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             bytes = Files.readAllBytes(uploadFile.toPath());
-        }
+        }*/
+       /* int sdkInt = Build.VERSION.SDK_INT;
+        int o = Build.VERSION_CODES.O;
+        if (sdkInt >= o) {
+            bytes = Files.readAllBytes(uploadFile.toPath());
+        }*/
+
+        int size = (int) uploadFile.length();
+        byte[] bytes = new byte[size];
+        BufferedInputStream buf = new BufferedInputStream(new FileInputStream(uploadFile));
+        buf.read(bytes, 0, bytes.length);
+        buf.close();
+
         request.write(bytes);
     }
 
@@ -101,7 +116,7 @@ public class MultipartUtility {
 
         // checks server's status code first
         int status = httpConn.getResponseCode();
-        if (status == HttpURLConnection.HTTP_OK) {
+        if (status == 201) {
             InputStream responseStream = new
                     BufferedInputStream(httpConn.getInputStream());
 

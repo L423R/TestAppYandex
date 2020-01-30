@@ -4,16 +4,9 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.os.Looper;
-import android.widget.Toast;
-
-import java.io.File;
-import java.io.IOException;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import ru.asntl.callsharklibrary.CallSharkStarter;
-import ru.asntl.callsharklibrary.config.CallSharkConfig;
 
 
 public class CallSharkUtility {
@@ -81,7 +74,7 @@ public class CallSharkUtility {
         return true;
     }
 
-    public static void sendVideo(String videoPath) {
+    /*public static void sendVideo(String videoPath) {
         if (videoPath==null){
             Toast.makeText(CallSharkStarter.getCurrentContext(), "Вы не записали видео. Повторите запись.", Toast.LENGTH_LONG).show();
         }else {
@@ -92,17 +85,18 @@ public class CallSharkUtility {
                 public void run() {
                     try {
                         final File file = new File(videoPath);
-                        MultipartUtility multipartUtility = new MultipartUtility(CallSharkConfig.getURLForSendFileToServer());
+                        *//*MultipartUtility multipartUtility = new MultipartUtility(CallSharkConfig.getURLForSendFileToServer());
                         multipartUtility.addFormField("clientId", String.valueOf(CallSharkConfig.getClientId()));
                         multipartUtility.addFormField("yandexVisitorId", String.valueOf(CallSharkConfig.getYandexVisitorId()));
-                        multipartUtility.addFilePart("file",file);
-                        String finish = multipartUtility.finish();
-                        if (finish.startsWith("OK")){
+                        multipartUtility.addFilePart("file",file);*//*
+                        String finish = YandexDiskUtility.uploadFileToYandexDisk(file);
+//                        String finish = multipartUtility.finish();
+                        if (finish.equals("")){
                             Looper.prepare();
                             Toast.makeText(CallSharkStarter.getCurrentContext(), "Ваше видео успешно отправлено.", Toast.LENGTH_LONG).show();
                             Looper.loop();
                         }
-                    } catch (IOException e) {
+                    } catch (Exception e) {
                         Looper.prepare();
                         Toast.makeText(CallSharkStarter.getCurrentContext(), "Ошибка отправки ведео.", Toast.LENGTH_LONG).show();
                         Looper.loop();
@@ -114,5 +108,5 @@ public class CallSharkUtility {
             thread.start();
         }
 
-    }
+    }*/
 }
