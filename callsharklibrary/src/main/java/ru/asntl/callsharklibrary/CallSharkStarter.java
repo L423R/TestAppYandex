@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -44,19 +45,24 @@ public class CallSharkStarter extends AsyncTask<String, Integer, String> {
         try {
             URL url = new URL(urls[0]);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestProperty("User-Agent","Mozilla/5.0 ( compatible ) ");
+            connection.setRequestProperty("Accept","*/*");
             connection.setRequestMethod("GET");
-            connection.setDoOutput(true);
+            connection.setDoInput(true);
+//            connection.setDoOutput(true); tol'ko dl9 POST
             connection.setConnectTimeout(5000);
             connection.setReadTimeout(5000);
             connection.connect();
-            BufferedReader rd = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            InputStream inputStream = connection.getInputStream();
+            InputStreamReader in = new InputStreamReader(inputStream);
+            BufferedReader rd = new BufferedReader(in);
             String content = "", line;
             while ((line = rd.readLine()) != null) {
                 content += line + "\n";
             }
             return content;
         }catch (Exception e){
-            Log.d("doInBackground",e.getMessage());
+            Log.e("doInBackground",e.getMessage());
         }
         return null;
     }
@@ -80,8 +86,9 @@ public class CallSharkStarter extends AsyncTask<String, Integer, String> {
                 Intent intent = new Intent(context, CallSharkActivity.class);
                 activity.startActivity(intent);
             }
+            Log.d("onPostExecute",result);
         }
-        Log.d("onPostExecute",result);
+
     }
 
 }

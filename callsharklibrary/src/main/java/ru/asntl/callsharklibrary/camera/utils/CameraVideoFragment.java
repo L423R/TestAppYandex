@@ -574,7 +574,8 @@ public abstract class CameraVideoFragment extends BaseFragment {
          * set output file in media recorder
          */
         mMediaRecorder.setOutputFile(mCurrentFile.getAbsolutePath());
-        CamcorderProfile profile = CamcorderProfile.get(CamcorderProfile.QUALITY_480P);
+        CamcorderProfile profile = CamcorderProfile.get(CamcorderProfile.QUALITY_LOW);
+//        CamcorderProfile profile = CamcorderProfile.get(CamcorderProfile.QUALITY_480P);
         mMediaRecorder.setMaxDuration(CallSharkConfig.getVideoDurationLimitMs());
         mMediaRecorder.setOnInfoListener(setOnInfoListenerForRecorder());
         mMediaRecorder.setVideoFrameRate(profile.videoFrameRate);

@@ -20,8 +20,8 @@ public class MainActivity extends AppCompatActivity {
     public void onMyButtonClick(View view) {
         /*required setting*/
         CallSharkConfig.setCallSharkUrl("https://develop.callshark.ru");
-        CallSharkConfig.setClientId(1190);
-        CallSharkConfig.setSiteId(1857);
+        CallSharkConfig.setClientId(1205);
+        CallSharkConfig.setSiteId(3636);
 
         /*not required setting*/
         CallSharkConfig.setYandexVisitorId(999);
